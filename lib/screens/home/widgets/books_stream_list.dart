@@ -25,13 +25,24 @@ class BooksStreamList extends StatelessWidget {
             return const BookLoadingShimmer();
           }
           if (snapshot.hasError) {
-            Fluttertoast.showToast(
-              msg: "Somehting went wrong!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 15,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.replay_outlined,
+                  size: 45,
+                  color: Colors.black.withOpacity(0.6),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Something went wrong!",
+                  style: TextStyle(
+                    color: Colors.black.withOpacity(0.6),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
             );
           }
           BookModel booksData = snapshot.data;

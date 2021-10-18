@@ -56,7 +56,7 @@ class ProfileOSDetail extends StatelessWidget {
                 const SizedBox(
                   width: 300,
                   child: Text(
-                    "Developer ran out of time. Page will be updated in next update.",
+                    "Ran out of time. Page will be updated in next update.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
