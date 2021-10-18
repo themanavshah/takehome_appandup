@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:take_home/controllers/books_controller.dart';
 import 'package:take_home/helpers/responsiveness.dart';
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.only(
-                top: 85,
+                top: kIsWeb ? 30 : 85,
               ),
               child: Column(
                 children: [

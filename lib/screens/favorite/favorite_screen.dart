@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:take_home/controllers/fav_books_controller.dart';
 import 'package:take_home/helpers/responsiveness.dart';
 import 'package:take_home/screens/favorite/widgets/favbooks_stream_list.dart';
@@ -32,7 +34,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.only(
-                top: 75.0,
+                top: kIsWeb ? 20 : 75.0,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

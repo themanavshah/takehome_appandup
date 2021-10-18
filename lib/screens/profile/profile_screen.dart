@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'package:take_home/screens/profile/widgets/logout_card.dart';
 import 'package:take_home/screens/profile/widgets/profile_os_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -19,7 +19,11 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 100.0, left: 40, right: 40),
+      padding: const EdgeInsets.only(
+        top: kIsWeb ? 20 : 100.0,
+        left: 40,
+        right: 40,
+      ),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
