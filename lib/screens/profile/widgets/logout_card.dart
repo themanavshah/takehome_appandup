@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:take_home/constants/colors.dart';
 import 'package:take_home/screens/auth/auth_screen.dart';
+import 'package:take_home/services/firebase_auth.dart';
 
 class LogoutCard extends StatelessWidget {
   const LogoutCard({Key? key}) : super(key: key);
@@ -41,10 +43,21 @@ class LogoutCard extends StatelessWidget {
                 FirebaseAuth.instance.signOut().then((value) {
                   SharedPreferences.getInstance().then((value) {
                     value.remove("userAuthToken");
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AuthScreen()));
+                    GoogleSignIn().isSignedIn().then((isSignin) {
+                      if (isSignin) {
+                        FirebaseAuthApp().signOutFromGoogle().then((value) {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AuthScreen()));
+                        });
+                      } else {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AuthScreen()));
+                      }
+                    });
                   });
                 });
               },

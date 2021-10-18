@@ -30,6 +30,7 @@ class _AuthCardState extends State<AuthCard> {
     'password': '',
   };
   var _isLoading = false;
+  var _isLoadingGoogle = false;
   final _passwordController = TextEditingController();
   final _confirmpasswordController = TextEditingController();
   final _emailController = TextEditingController();
@@ -147,7 +148,7 @@ class _AuthCardState extends State<AuthCard> {
     }
 
     return Container(
-      height: _authMode == AuthMode.Signup ? 480 : 380,
+      height: _authMode == AuthMode.Signup ? 500 : 420,
       constraints:
           BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
       width: deviceSize.width *
@@ -164,14 +165,6 @@ class _AuthCardState extends State<AuthCard> {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 10,
-                      blurRadius: 25,
-                      offset: const Offset(0, 7), // changes position of shadow
-                    ),
-                  ],
                   borderRadius: BorderRadius.circular(340),
                   color: Colors.white,
                 ),
@@ -207,14 +200,6 @@ class _AuthCardState extends State<AuthCard> {
               const SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 10,
-                      blurRadius: 25,
-                      offset: const Offset(0, 7), // changes position of shadow
-                    ),
-                  ],
                   borderRadius: BorderRadius.circular(340),
                   color: Colors.white,
                 ),
@@ -274,15 +259,6 @@ class _AuthCardState extends State<AuthCard> {
                     const SizedBox(height: 20),
                     Container(
                       decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 10,
-                            blurRadius: 25,
-                            offset: const Offset(
-                                0, 7), // changes position of shadow
-                          ),
-                        ],
                         borderRadius: BorderRadius.circular(340),
                         color: Colors.white,
                       ),
@@ -366,15 +342,6 @@ class _AuthCardState extends State<AuthCard> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 8.0),
                     decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 10,
-                          blurRadius: 25,
-                          offset:
-                              const Offset(0, 7), // changes position of shadow
-                        ),
-                      ],
                       borderRadius: BorderRadius.circular(80),
                       color: OurColors.yellow,
                     ),
@@ -389,9 +356,62 @@ class _AuthCardState extends State<AuthCard> {
                     )),
                   ),
                 ),
+              const SizedBox(height: 15),
+              if (_isLoadingGoogle)
+                const CupertinoActivityIndicator()
+              else
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isLoadingGoogle = true;
+                    });
+                    FirebaseAuthApp().signInwithGoogle().then((value) {
+                      setState(() {
+                        _isLoadingGoogle = false;
+                      });
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const GeneralLayout()));
+                    }).onError((error, stackTrace) {
+                      setState(() {
+                        _isLoadingGoogle = false;
+                      });
+                    });
+                  },
+                  child: Container(
+                    width: deviceSize.width * 0.8,
+                    height: 60,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0, vertical: 8.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(80),
+                      color: OurColors.yellow,
+                    ),
+                    child: Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: AssetImage("assets/google_logo.png"),
+                        ),
+                        SizedBox(width: 15),
+                        Text(
+                          'Signin with google',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    )),
+                  ),
+                ),
               GestureDetector(
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Row(
                     children: [
                       Text(
