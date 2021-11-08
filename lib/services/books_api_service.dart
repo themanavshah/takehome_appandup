@@ -8,6 +8,8 @@ class BooksApi {
   Future<BookModel> getBooks({String name = "Famous+books"}) async {
     var client = http.Client();
 
+    
+    //before getting started add your API key in constants/strings.dart
     String url =
         'https://www.googleapis.com/books/v1/volumes?q=$name&key=${OurStrings.apiKey}';
     late BookModel booksModel;
