@@ -1,3 +1,4 @@
 class OurStrings {
-  static const apiKey = "AIzaSyDvFH23fm9NdO7oiWZRYULkJjSdC_yc59k";
+  //add your api key before getting started
+  static const apiKey = "AI******************************59k";
 }
